@@ -1,0 +1,45 @@
+.Main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  row-gap: 50px;
+  margin-bottom: 50px;
+}
+.ThumbPhotographer {
+  width: calc(100% / 3);
+  min-width: 200px;
+  text-align: center;
+}
+.Name {
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 47px;
+  text-align: center;
+  color: #d3573c;
+}
+.Description {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: -20px;
+}
+.City {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 17px;
+  text-align: center;
+  color: #901c1c;
+}
+.Tagline {
+  font-size: 10px;
+  line-height: 13px;
+  text-align: center;
+  color: #000000;
+}
+.Price {
+  font-size: 9px;
+  line-height: 12px;
+  text-align: center;
+  color: #757575;
+}

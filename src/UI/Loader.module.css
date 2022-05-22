@@ -1,0 +1,17 @@
+.Loader {
+  position: absolute;
+  top: 30%;
+  right: 50%;
+}
+
+.Rotate {
+  width: 70px;
+  height: 70px;
+  color: #911c1c;
+  animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

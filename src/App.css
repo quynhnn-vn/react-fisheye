@@ -1,0 +1,35 @@
+body {
+  font-family: "DM Sans", sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+}
+
+h1 {
+  color: #901c1c;
+  margin-right: 100px;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+input[type="button"] {
+  border: none;
+  outline: none;
+}
+
+figure {
+  margin: 0;
+}
