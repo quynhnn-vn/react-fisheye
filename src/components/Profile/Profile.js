@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
+
 import IdPhoto from "UI/IdPhoto";
-import { getPhotoOrVideoSource } from "utils/utils";
+
+import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 import { AiFillHeart } from "react-icons/ai";
 
 import styles from "./Profile.module.css";
-import Modal from "UI/Modal";
 
 export default function Profile({ photographers, media }) {
   const { userId } = useParams();
+  const location = useLocation();
+
   // Can be likes, date or title
   const [filterBy, setFilterBy] = useState("likes");
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const matchedUser = photographers.find((user) => user.id === Number(userId));
   const matchedMedia = media.filter(
@@ -21,19 +22,6 @@ export default function Profile({ photographers, media }) {
 
   const onChangeFilter = (e) => {
     setFilterBy(e.target.value);
-  };
-
-  const onShowModal = (item) => {
-    setIsShowModal(!isShowModal);
-    setSelectedPhoto(item);
-  };
-
-  const sortMedia = (data) => {
-    return data.sort((a, b) => {
-      if (filterBy === "likes") return b.likes - a.likes;
-      else if (filterBy === "date") return new Date(b.date) - new Date(a.date);
-      else return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-    });
   };
 
   const header = (
@@ -74,25 +62,33 @@ export default function Profile({ photographers, media }) {
 
   const collection = matchedMedia.length && (
     <section className={styles.Collection}>
-      {sortMedia(matchedMedia).map((item) => (
-        <figure
+      {sortMedia(matchedMedia, filterBy).map((item) => (
+        <Link
           key={item.id}
-          className={styles.PhotoContainer}
-          onClick={() => onShowModal(item.id)}
+          to={`photo/${item.id}`}
+          state={{
+            backgroundLocation: location,
+            filterBy,
+          }}
         >
-          {item?.image ? (
-            <img src={getPhotoOrVideoSource(item?.image)} alt={item.title} />
-          ) : (
-            <video src={getPhotoOrVideoSource(item?.video)} alt={item.title} />
-          )}
-          <figcaption>
-            <span className={styles.Title}>{item.title}</span>
-            <div className={styles.LikeContainer}>
-              <span className={styles.Like}>{item.likes}</span>
-              <AiFillHeart className={styles.HeartBtn} />
-            </div>
-          </figcaption>
-        </figure>
+          <figure className={styles.PhotoContainer}>
+            {item?.image ? (
+              <img src={getPhotoOrVideoSource(item?.image)} alt={item.title} />
+            ) : (
+              <video
+                src={getPhotoOrVideoSource(item?.video)}
+                alt={item.title}
+              />
+            )}
+            <figcaption>
+              <span className={styles.Title}>{item.title}</span>
+              <div className={styles.LikeContainer}>
+                <span className={styles.Like}>{item.likes}</span>
+                <AiFillHeart className={styles.HeartBtn} />
+              </div>
+            </figcaption>
+          </figure>
+        </Link>
       ))}
     </section>
   );
@@ -107,27 +103,6 @@ export default function Profile({ photographers, media }) {
     </section>
   );
 
-  const modal = selectedPhoto && (
-    <Modal isShowModal={isShowModal} selectedPhoto={selectedPhoto}>
-      <figure className={styles.PhotoContainer}>
-        {selectedPhoto?.image ? (
-          <img
-            src={getPhotoOrVideoSource(selectedPhoto?.image)}
-            alt={selectedPhoto.title}
-          />
-        ) : (
-          <video
-            src={getPhotoOrVideoSource(selectedPhoto?.video)}
-            alt={selectedPhoto.title}
-          />
-        )}
-        <figcaption>
-          <span className={styles.Title}>{selectedPhoto.title}</span>
-        </figcaption>
-      </figure>
-    </Modal>
-  );
-
   return (
     matchedUser && (
       <div className={styles.ProfileContainer}>
@@ -135,7 +110,6 @@ export default function Profile({ photographers, media }) {
         {filter}
         {collection}
         {footer}
-        {modal}
       </div>
     )
   );

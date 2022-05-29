@@ -10,3 +10,11 @@ export const getPhotoOrVideoSource = (source) => {
   const photo = require(`assets/photos/${source}`);
   return photo;
 };
+
+export const sortMedia = (data, filterBy) => {
+  return data.sort((a, b) => {
+    if (filterBy === "likes") return b.likes - a.likes;
+    else if (filterBy === "date") return new Date(b.date) - new Date(a.date);
+    else return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+  });
+};

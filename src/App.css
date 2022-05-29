@@ -33,3 +33,7 @@ input[type="button"] {
 figure {
   margin: 0;
 }
+
+:root {
+  --primary: #911c1c;
+}
