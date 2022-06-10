@@ -33,12 +33,19 @@ export default function Profile({ photographers, media }) {
         >{`${matchedUser?.city}, ${matchedUser?.country}`}</p>
         <p className={styles.Tagline}>{matchedUser?.tagline}</p>
       </div>
-      <input
-        type="button"
-        alt="Submit"
-        className={styles.ContactBtn}
-        value="Contactez-moi"
-      />
+      <Link
+        to={`/profile/${userId}/contact`}
+        state={{
+          backgroundLocation: location,
+        }}
+      >
+        <input
+          type="button"
+          alt="Submit"
+          className={styles.ContactBtn}
+          value="Contactez-moi"
+        />
+      </Link>
       <figure>
         <IdPhoto user={matchedUser} />
       </figure>

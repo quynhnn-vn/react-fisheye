@@ -42,6 +42,7 @@
   height: 69px;
   color: #ffffff;
   padding: 0 10px;
+  cursor: pointer;
 }
 .Filter {
   display: flex;

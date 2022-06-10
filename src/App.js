@@ -7,6 +7,7 @@ import Loader from "UI/Loader";
 import Modal from "UI/Modal";
 
 import "./App.css";
+import ContactModal from "UI/ContactModal";
 
 function App() {
   const location = useLocation();
@@ -50,6 +51,10 @@ function App() {
               <Route
                 path="/profile/:userId/photo/:photoId"
                 element={<Modal media={media} />}
+              />
+              <Route
+                path="/profile/:userId/contact"
+                element={<ContactModal photographers={photographers} />}
               />
             </Routes>
           )}
