@@ -3,7 +3,7 @@
   height: 900px;
   mix-blend-mode: normal;
   filter: drop-shadow(-5px 10px 30px rgba(0, 0, 0, 0.25));
-  background: #db8876;
+  background: var(--orange-footer);
   border-radius: 5px;
   padding: 0 50px;
 }
@@ -20,7 +20,7 @@
 .CloseIcon {
   width: 42px !important;
   height: 42px !important;
-  color: #ffffff !important;
+  color: var(--white) !important;
 }
 .Label {
   font-family: DM Sans;
@@ -31,7 +31,7 @@
   text-align: left;
 }
 .Input {
-  background: #ffffff;
+  background: var(--white);
   border-radius: 5px;
   border: unset;
   height: 68px;
@@ -45,11 +45,11 @@
   font-weight: 400;
   font-size: 64px;
   line-height: 80px;
-  color: #000000;
+  color: var(--black);
   padding-top: -10px;
 }
 .SendButton {
-  background: #911c1c;
+  background: var(--primary);
   border-radius: 5px;
   height: 69px;
   width: 170px;
@@ -59,6 +59,6 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 23px;
-  color: #ffffff;
+  color: var(--white);
   margin: 20px 0;
 }

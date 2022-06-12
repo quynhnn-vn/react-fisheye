@@ -8,7 +8,7 @@ export const getIDPhotoSource = (name) => {
 
 export const getPhotoOrVideoSource = (source) => {
   const photo = require(`assets/photos/${source}`);
-  return photo;
+  return photo || "/";
 };
 
 export const sortMedia = (data, filterBy) => {

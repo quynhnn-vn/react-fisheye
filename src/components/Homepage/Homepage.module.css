@@ -16,7 +16,7 @@
   font-size: 36px;
   line-height: 47px;
   text-align: center;
-  color: #d3573c;
+  color: var(--secondary);
 }
 .Description {
   display: flex;
@@ -29,17 +29,17 @@
   font-size: 13px;
   line-height: 17px;
   text-align: center;
-  color: #901c1c;
+  color: var(--red-text);
 }
 .Tagline {
   font-size: 10px;
   line-height: 13px;
   text-align: center;
-  color: #000000;
+  color: var(--black);
 }
 .Price {
   font-size: 9px;
   line-height: 12px;
   text-align: center;
-  color: #757575;
+  color: var(--gray-text);
 }

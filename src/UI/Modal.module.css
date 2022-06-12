@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background: #ffffff;
+  background: var(--white);
   position: relative;
   /* width: 80%;
   height: 80%; */
@@ -54,5 +54,5 @@
   font-weight: 400;
   font-size: 24px;
   line-height: 31px;
-  color: #911c1c;
+  color: var(--primary);
 }

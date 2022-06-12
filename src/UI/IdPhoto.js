@@ -8,6 +8,7 @@ export default function IdPhoto({ user }) {
       src={getIDPhotoSource(user?.name)}
       alt={`Portrait de ${user?.name}`}
       className={styles.IdPhoto}
+      loading="lazy"
     />
   );
 }

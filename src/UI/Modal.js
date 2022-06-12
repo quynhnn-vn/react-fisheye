@@ -32,7 +32,6 @@ export default function Modal({ media }) {
       aria-labelledby={currentPhoto.title}
       aria-describedby={currentPhoto.title}
       className={styles.ModalContainer}
-      maxWidth="md"
     >
       <div className={styles.ModalContent}>
         <div className={styles.NarrowButton}>

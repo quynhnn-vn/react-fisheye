@@ -7,6 +7,7 @@ import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 import { AiFillHeart } from "react-icons/ai";
 
 import styles from "./Profile.module.css";
+import Loader from "UI/Loader";
 
 export default function Profile({ photographers, media }) {
   const { userId } = useParams();
@@ -80,7 +81,11 @@ export default function Profile({ photographers, media }) {
         >
           <figure className={styles.PhotoContainer}>
             {item?.image ? (
-              <img src={getPhotoOrVideoSource(item?.image)} alt={item.title} />
+              <img
+                src={getPhotoOrVideoSource(item?.image)}
+                alt={item.title}
+                loading="lazy"
+              />
             ) : (
               <video
                 src={getPhotoOrVideoSource(item?.video)}
@@ -110,14 +115,14 @@ export default function Profile({ photographers, media }) {
     </section>
   );
 
-  return (
-    matchedUser && (
-      <div className={styles.ProfileContainer}>
-        {header}
-        {filter}
-        {collection}
-        {footer}
-      </div>
-    )
+  return matchedUser ? (
+    <div className={styles.ProfileContainer}>
+      {header}
+      {filter}
+      {collection}
+      {footer}
+    </div>
+  ) : (
+    <Loader />
   );
 }

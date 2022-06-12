@@ -13,7 +13,7 @@ header {
 }
 
 h1 {
-  color: #901c1c;
+  color: var(--red-text);
   margin-right: 100px;
 }
 
@@ -36,4 +36,12 @@ figure {
 
 :root {
   --primary: #911c1c;
+  --secondary: #d3573c;
+  --red-text: #901c1c;
+  --gray-text: #525252;
+  --gray-background: #c4c4c4;
+  --gray-header: #fafafa;
+  --orange-footer: #db8876;
+  --white: #ffffff;
+  --black: #000000;
 }
