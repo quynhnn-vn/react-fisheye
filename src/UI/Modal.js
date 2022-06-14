@@ -1,6 +1,6 @@
 import { ArrowBackIosNew, ArrowForwardIos, Close } from "@mui/icons-material";
 import { Dialog, IconButton } from "@mui/material";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 
@@ -24,6 +24,39 @@ export default function Modal({ media }) {
     matchedMedia[currentIndex],
     matchedMedia[currentIndex + 1],
   ];
+
+  const handleKeyPress = useCallback(
+    (e) => {
+      if (e.key === "ArrowRight" && nextPhoto) {
+        navigate(`/profile/${userId}/photo/${nextPhoto?.id}`, {
+          state: {
+            backgroundLocation: {
+              pathname: `/profile/${userId}`,
+            },
+            filterBy: state.filterBy,
+          },
+        });
+      } else if (e.key === "ArrowLeft" && previousPhoto) {
+        navigate(`/profile/${userId}/photo/${previousPhoto?.id}`, {
+          state: {
+            backgroundLocation: {
+              pathname: `/profile/${userId}`,
+            },
+            filterBy: state.filterBy,
+          },
+        });
+      }
+    },
+    [navigate, nextPhoto, previousPhoto, state.filterBy, userId]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return (
     <Dialog
@@ -61,9 +94,17 @@ export default function Modal({ media }) {
             />
           ) : (
             <video
-              src={getPhotoOrVideoSource(currentPhoto?.video)}
-              alt={currentPhoto.title}
-            />
+              width="600"
+              height="400"
+              aria-label={currentPhoto.title}
+              controls
+            >
+              <source
+                src={getPhotoOrVideoSource(currentPhoto?.video)}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           )}
           <figcaption>
             <span className={styles.Title}>{currentPhoto.title}</span>

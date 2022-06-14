@@ -61,7 +61,7 @@
   flex-wrap: wrap;
   margin-bottom: 50px;
   row-gap: 30px;
-  justify-content: flex-start;
+  justify-content: space-between;
   column-gap: calc((100% - 350px * 3) / 2);
 }
 .PhotoContainer {

@@ -24,7 +24,7 @@
 }
 .Label {
   font-family: DM Sans;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 400;
   line-height: 47px;
   letter-spacing: 0em;
@@ -34,17 +34,17 @@
   background: var(--white);
   border-radius: 5px;
   border: unset;
-  height: 68px;
+  height: 45px;
 }
 .Input[type="textarea"] {
-  height: 170px;
+  height: 120px;
 }
 .Title {
   font-family: "DM Sans";
   font-style: normal;
   font-weight: 400;
-  font-size: 64px;
-  line-height: 80px;
+  font-size: 40px;
+  line-height: 50px;
   color: var(--black);
   padding-top: -10px;
 }
