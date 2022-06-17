@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 
 import IdPhoto from "UI/IdPhoto";
@@ -12,6 +12,10 @@ import Loader from "UI/Loader";
 export default function Profile({ photographers, media }) {
   const { userId } = useParams();
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Can be likes, date or title
   const [filterBy, setFilterBy] = useState("likes");
@@ -42,7 +46,7 @@ export default function Profile({ photographers, media }) {
       >
         <input
           type="button"
-          alt="Submit"
+          alt="Contact Me"
           className={styles.ContactBtn}
           value="Contactez-moi"
         />
@@ -60,6 +64,7 @@ export default function Profile({ photographers, media }) {
         className={styles.DropDown}
         value={filterBy}
         onChange={onChangeFilter}
+        alt="Order by"
       >
         <option value="likes">Popularité</option>
         <option value="date">Date</option>
@@ -94,7 +99,7 @@ export default function Profile({ photographers, media }) {
             )}
             <figcaption>
               <span className={styles.Title}>{item.title}</span>
-              <div className={styles.LikeContainer}>
+              <div className={styles.LikeContainer} aria-label="likes">
                 <span className={styles.Like}>{item.likes}</span>
                 <AiFillHeart className={styles.HeartBtn} />
               </div>

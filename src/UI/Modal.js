@@ -66,7 +66,7 @@ export default function Modal({ media }) {
       aria-describedby={currentPhoto.title}
       className={styles.ModalContainer}
     >
-      <div className={styles.ModalContent}>
+      <div className={styles.ModalContent} aria-label="image closeup view">
         <div className={styles.NarrowButton}>
           {previousPhoto ? (
             <Link

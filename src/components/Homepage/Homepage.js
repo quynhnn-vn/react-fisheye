@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import IdPhoto from "UI/IdPhoto";
 
 import styles from "./Homepage.module.css";
 
 export default function Main({ photographers }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main className={styles.Main}>
       {photographers.length &&

@@ -6,7 +6,7 @@ export default function IdPhoto({ user }) {
   return (
     <img
       src={getIDPhotoSource(user?.name)}
-      alt={`Portrait de ${user?.name}`}
+      alt={user?.name || ""}
       className={styles.IdPhoto}
       loading="lazy"
     />
