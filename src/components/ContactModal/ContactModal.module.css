@@ -39,6 +39,10 @@
 .Input[type="textarea"] {
   height: 120px;
 }
+.Error {
+  color: var(--red-text);
+}
+
 .Title {
   font-family: "DM Sans";
   font-style: normal;
@@ -47,18 +51,4 @@
   line-height: 50px;
   color: var(--black);
   padding-top: -10px;
-}
-.SendButton {
-  background: var(--primary);
-  border-radius: 5px;
-  height: 69px;
-  width: 170px;
-  border: unset;
-  font-family: "DM Sans";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 23px;
-  color: var(--white);
-  margin: 20px 0;
 }

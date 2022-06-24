@@ -4,10 +4,10 @@ import Homepage from "components/Homepage/Homepage";
 import Profile from "components/Profile/Profile";
 import Header from "components/Header/Header";
 import Loader from "UI/Loader";
-import Modal from "UI/Modal";
+import Modal from "components/PhotoModal/PhotoModal";
 
 import "./App.css";
-import ContactModal from "UI/ContactModal";
+import ContactModal from "components/ContactModal/ContactModal";
 
 function App() {
   const location = useLocation();
@@ -15,14 +15,18 @@ function App() {
   const [media, setMedia] = useState([]);
 
   useEffect(() => {
-    fetchPhotographers().catch((error) => console.log(error));
+    fetchPhotographers();
   }, []);
 
   const fetchPhotographers = async () => {
-    const response = await fetch("/data/photographers.json");
-    const { photographers, media } = await response.json();
-    setPhotographers(photographers);
-    setMedia(media);
+    try {
+      let response = await fetch("/data/photographers.json");
+      const { photographers, media } = await response.json();
+      setPhotographers(photographers);
+      setMedia(media);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // The `backgroundLocation` state is the location that we were at when one of

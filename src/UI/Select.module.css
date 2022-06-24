@@ -1,0 +1,59 @@
+.DropDown,
+.MenuItem {
+  background-color: var(--primary) !important;
+  border-radius: 5px;
+  height: 69px;
+  width: 170px;
+  font-family: "DM Sans" !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  line-height: 23px !important;
+  color: var(--white) !important;
+  margin: 20px 0;
+  cursor: pointer;
+}
+.DropDown:hover,
+.DropDown:focus {
+  background-color: var(--secondary) !important;
+  color: var(--black) !important;
+}
+.DropDown > fieldset {
+  border: none;
+}
+.DropDown > svg {
+  color: var(--white);
+}
+.DropDown:hover > svg,
+.DropDown:focus > svg {
+  color: var(--black);
+}
+.MenuItem {
+  padding: 0 10px !important;
+  border-radius: 0;
+  border-bottom: 1px solid !important;
+  border-image: linear-gradient(
+      to right,
+      var(--primary) 10%,
+      var(--white) 10%,
+      var(--white) 50%,
+      var(--white) 50%,
+      var(--white) 90%,
+      var(--primary) 90%
+    )
+    3 !important;
+}
+.MenuItem:first-of-type {
+  margin-top: -72px;
+}
+.MenuItem:last-of-type {
+  margin-bottom: -8px;
+  border-bottom: none !important;
+}
+.MenuItem:hover {
+  background-color: var(--secondary) !important;
+  color: var(--black) !important;
+}
+/* .MenuItem:focus {
+  background-color: var(--secondary) !important;
+  color: var(--white) !important;
+} */

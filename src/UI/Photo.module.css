@@ -1,0 +1,53 @@
+.PhotoContainer {
+  width: 350px;
+  height: 351px;
+}
+
+.PhotoContainer img,
+.PhotoContainer video {
+  width: 100%;
+  height: calc(100% - 40px);
+  object-fit: cover;
+  border-radius: 5px;
+}
+.PhotoContainer figcaption {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.HeartBtn {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+}
+
+.Like {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 31px;
+  text-align: right;
+  color: var(--primary);
+}
+.Title {
+  max-width: 80%;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 31px;
+  color: var(--primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.LikeContainer {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+.LikeContainer:hover .HeartBtn,
+.LikeContainer:hover .Like {
+  color: var(--secondary);
+}

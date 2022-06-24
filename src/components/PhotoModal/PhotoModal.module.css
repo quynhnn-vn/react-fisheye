@@ -32,14 +32,12 @@
 
 .PhotoContainer {
   padding: 25px 0 10px 0;
-  max-height: calc(100vh - 100px);
-  max-width: calc(100%);
 }
 
 .PhotoContainer img,
 .PhotoContainer video {
   max-width: 100%;
-  height: calc(100% - 40px);
+  height: calc(90vh - 70px);
   object-fit: cover;
   border-radius: 5px;
 }

@@ -3,11 +3,30 @@ import { useParams, useLocation, Link } from "react-router-dom";
 
 import IdPhoto from "UI/IdPhoto";
 
-import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 import { AiFillHeart } from "react-icons/ai";
 
 import styles from "./Profile.module.css";
 import Loader from "UI/Loader";
+import Photo from "UI/Photo";
+import Button from "UI/Button";
+import Select from "UI/Select";
+import { sortMedia } from "utils/utils";
+import { cloneDeep } from "lodash";
+
+const filterOptions = [
+  {
+    value: "likes",
+    title: "Popularité",
+  },
+  {
+    value: "date",
+    title: "Date",
+  },
+  {
+    value: "title",
+    title: "Titre",
+  },
+];
 
 export default function Profile({ photographers, media }) {
   const { userId } = useParams();
@@ -17,16 +36,30 @@ export default function Profile({ photographers, media }) {
     window.scrollTo(0, 0);
   }, []);
 
+  const [matchedMedia, setMatchedMedia] = useState([]);
   // Can be likes, date or title
   const [filterBy, setFilterBy] = useState("likes");
+  const [options, setOptions] = useState(filterOptions);
 
   const matchedUser = photographers.find((user) => user.id === Number(userId));
-  const matchedMedia = media.filter(
-    (item) => item.photographerId === Number(userId)
-  );
+
+  useEffect(() => {
+    setMatchedMedia(
+      media.filter((item) => Number(item.photographerId) === Number(userId))
+    );
+  }, [media, userId]);
 
   const onChangeFilter = (e) => {
     setFilterBy(e.target.value);
+
+    let cloneOptions = cloneDeep(options);
+    const currentIndex = cloneOptions.findIndex(
+      (option) => option.value === e.target.value
+    );
+    const currentFilter = cloneOptions[currentIndex];
+    cloneOptions.splice(currentIndex, 1);
+    cloneOptions.unshift(currentFilter);
+    setOptions(cloneOptions);
   };
 
   const header = (
@@ -44,12 +77,7 @@ export default function Profile({ photographers, media }) {
           backgroundLocation: location,
         }}
       >
-        <input
-          type="button"
-          alt="Contact Me"
-          className={styles.ContactBtn}
-          value="Contactez-moi"
-        />
+        <Button alt="Contact Me">Contactez-moi</Button>
       </Link>
       <figure>
         <IdPhoto user={matchedUser} />
@@ -60,52 +88,27 @@ export default function Profile({ photographers, media }) {
   const filter = (
     <section className={styles.Filter}>
       <span className={styles.FilterText}>Trier par</span>
-      <select
-        className={styles.DropDown}
+      <Select
+        labelId="order-by"
+        id="order-by"
+        alt="Order by"
         value={filterBy}
         onChange={onChangeFilter}
-        alt="Order by"
-      >
-        <option value="likes">Popularité</option>
-        <option value="date">Date</option>
-        <option value="title">Titre</option>
-      </select>
+        options={options}
+      />
     </section>
   );
 
   const collection = matchedMedia.length && (
     <section className={styles.Collection}>
       {sortMedia(matchedMedia, filterBy).map((item) => (
-        <Link
+        <Photo
           key={item.id}
-          to={`photo/${item.id}`}
-          state={{
-            backgroundLocation: location,
-            filterBy,
-          }}
-        >
-          <figure className={styles.PhotoContainer}>
-            {item?.image ? (
-              <img
-                src={getPhotoOrVideoSource(item?.image)}
-                alt={item.title}
-                loading="lazy"
-              />
-            ) : (
-              <video
-                src={getPhotoOrVideoSource(item?.video)}
-                alt={item.title}
-              />
-            )}
-            <figcaption>
-              <span className={styles.Title}>{item.title}</span>
-              <div className={styles.LikeContainer} aria-label="likes">
-                <span className={styles.Like}>{item.likes}</span>
-                <AiFillHeart className={styles.HeartBtn} />
-              </div>
-            </figcaption>
-          </figure>
-        </Link>
+          item={item}
+          matchedMedia={matchedMedia}
+          setMatchedMedia={setMatchedMedia}
+          filterBy={filterBy}
+        />
       ))}
     </section>
   );

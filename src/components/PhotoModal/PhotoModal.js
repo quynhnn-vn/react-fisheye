@@ -4,7 +4,7 @@ import React, { useCallback, useEffect } from "react";
 import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 
-import styles from "./Modal.module.css";
+import styles from "./PhotoModal.module.css";
 
 export default function Modal({ media }) {
   const navigate = useNavigate();
@@ -65,8 +65,15 @@ export default function Modal({ media }) {
       aria-labelledby={currentPhoto.title}
       aria-describedby={currentPhoto.title}
       className={styles.ModalContainer}
+      fullWidth
+      maxWidth="md"
+      maxHeight="100vh"
     >
-      <div className={styles.ModalContent} aria-label="image closeup view">
+      <div
+        className={styles.ModalContent}
+        aria-label="image closeup view"
+        style={{ height: "90vh" }}
+      >
         <div className={styles.NarrowButton}>
           {previousPhoto ? (
             <Link
@@ -94,8 +101,8 @@ export default function Modal({ media }) {
             />
           ) : (
             <video
-              width="600"
-              height="400"
+              width="100%"
+              height="calc(90vh - 70px)"
               aria-label={currentPhoto.title}
               controls
             >

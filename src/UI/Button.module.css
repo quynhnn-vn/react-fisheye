@@ -1,0 +1,20 @@
+.Button {
+  background-color: var(--primary);
+  border-radius: 5px;
+  height: 69px;
+  width: 170px;
+  border: unset;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--white);
+  margin: 20px 0;
+  cursor: pointer;
+}
+.Button:hover,
+.Button:focus {
+  background-color: var(--secondary);
+  color: var(--black);
+}

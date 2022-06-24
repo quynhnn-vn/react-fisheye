@@ -18,3 +18,13 @@ export const sortMedia = (data, filterBy) => {
     else return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
   });
 };
+
+export const validEmailRegex = RegExp(/.+@.+\..+/);
+
+export const validateForm = (error) => {
+  let valid = true;
+  Object.values(error).forEach(
+    (val) => (val === null || val.length > 0) && (valid = false)
+  );
+  return valid;
+};

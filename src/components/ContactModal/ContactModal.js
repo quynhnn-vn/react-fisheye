@@ -1,7 +1,10 @@
 import { Close } from "@mui/icons-material";
 import { Dialog, IconButton } from "@mui/material";
+import { cloneDeep } from "lodash";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { validateForm, validEmailRegex } from "utils/utils";
+import Button from "../../UI/Button";
 
 import styles from "./ContactModal.module.css";
 
@@ -15,21 +18,55 @@ export default function ContactModal({ photographers }) {
     email: "",
     message: "",
   });
+  const [error, setError] = useState({
+    firstName: null,
+    lastName: null,
+    email: null,
+    message: null,
+  });
 
   const matchedUser = photographers.find(
     (photographer) => photographer.id === Number(userId)
   );
 
+  const onCloseModal = () => navigate(`/profile/${userId}`);
+
   const onChangeForm = (e) => {
+    e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
+
     setForm({
       ...form,
       [name]: value,
     });
   };
 
-  const onCloseModal = () => navigate(`/profile/${userId}`);
+  const onBlurForm = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+
+    let cloneError = cloneDeep(error);
+
+    cloneError[name] =
+      value.length === 0 ? "* Ce champs est obligatoire !" : "";
+
+    if (name === "email") {
+      cloneError.email = validEmailRegex.test(value)
+        ? ""
+        : "* L'email n'est pas valide !";
+    }
+
+    setError(cloneError);
+  };
+
+  const onSendForm = () => {
+    if (validateForm(error)) {
+      onCloseModal();
+      console.log(form);
+    }
+  };
 
   const renderInput = (type, title) => {
     return (
@@ -37,12 +74,16 @@ export default function ContactModal({ photographers }) {
         <label htmlFor={type} className={styles.Label}>
           {title}
         </label>
+        {error[type] && error[type]?.length > 0 && (
+          <span className={styles.Error}>{error[type]}</span>
+        )}
         <input
           id={type}
           type={type !== "message" ? "text" : "textarea"}
           name={type}
           value={form[type]}
           onChange={onChangeForm}
+          onBlur={onBlurForm}
           className={styles.Input}
         />
       </>
@@ -73,12 +114,9 @@ export default function ContactModal({ photographers }) {
           {renderInput("email", "Email")}
           {renderInput("message", "Votre message")}
         </form>
-        <input
-          type="submit"
-          value="Envoyer"
-          className={styles.SendButton}
-          onClick={onCloseModal}
-        />
+        <Button onClick={onSendForm} alt="Send">
+          Envoyer
+        </Button>
       </div>
     </Dialog>
   );
