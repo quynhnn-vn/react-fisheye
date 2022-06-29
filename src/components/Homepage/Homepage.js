@@ -22,7 +22,7 @@ export default function Main({ photographers }) {
                 </figcaption>
               </figure>
             </Link>
-            <div className={styles.Description}>
+            <div className={styles.Description} aria-label="city tagline price">
               <p
                 className={styles.City}
               >{`${photographer?.city}, ${photographer?.country}`}</p>

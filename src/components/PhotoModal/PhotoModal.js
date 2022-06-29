@@ -1,5 +1,5 @@
 import { ArrowBackIosNew, ArrowForwardIos, Close } from "@mui/icons-material";
-import { Dialog, IconButton } from "@mui/material";
+import { Dialog } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
 import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
@@ -67,32 +67,23 @@ export default function Modal({ media }) {
       className={styles.ModalContainer}
       fullWidth
       maxWidth="md"
-      maxHeight="100vh"
     >
-      <div
-        className={styles.ModalContent}
-        aria-label="image closeup view"
-        style={{ height: "90vh" }}
-      >
-        <div className={styles.NarrowButton}>
-          {previousPhoto ? (
-            <Link
-              to={`/profile/${userId}/photo/${previousPhoto?.id}`}
-              state={{
-                backgroundLocation: {
-                  pathname: `/profile/${userId}`,
-                },
-                filterBy: state.filterBy,
-              }}
-            >
-              <IconButton className={styles.IconButton}>
-                <ArrowBackIosNew className={styles.Icon} />
-              </IconButton>
-            </Link>
-          ) : (
-            <div className={styles.IconButton}></div>
-          )}
-        </div>
+      <div className={styles.ModalContent} aria-label="image closeup view">
+        {previousPhoto ? (
+          <Link
+            to={`/profile/${userId}/photo/${previousPhoto?.id}`}
+            state={{
+              backgroundLocation: {
+                pathname: `/profile/${userId}`,
+              },
+              filterBy: state.filterBy,
+            }}
+          >
+            <ArrowBackIosNew className={styles.Icon} />
+          </Link>
+        ) : (
+          <div className={styles.IconButton}></div>
+        )}
         <figure className={styles.PhotoContainer}>
           {currentPhoto?.image ? (
             <img
@@ -110,38 +101,40 @@ export default function Modal({ media }) {
                 src={getPhotoOrVideoSource(currentPhoto?.video)}
                 type="video/mp4"
               />
-              Your browser does not support the video tag.
+              <track
+                default
+                kind="captions"
+                srcLang="fr"
+                src={getPhotoOrVideoSource(currentPhoto?.video)}
+              />
+              Votre navigateur n'accepte pas le tag vidéo.
             </video>
           )}
           <figcaption>
             <span className={styles.Title}>{currentPhoto.title}</span>
           </figcaption>
         </figure>
-        <IconButton
-          className={[styles.IconButton, styles.CloseButton].join(" ")}
+        <button
+          className={styles.CloseButton}
           onClick={() => navigate(`/profile/${userId}`)}
         >
           <Close className={styles.Icon} />
-        </IconButton>
-        <div className={styles.NarrowButton}>
-          {nextPhoto ? (
-            <Link
-              to={`/profile/${userId}/photo/${nextPhoto?.id}`}
-              state={{
-                backgroundLocation: {
-                  pathname: `/profile/${userId}`,
-                },
-                filterBy: state.filterBy,
-              }}
-            >
-              <IconButton className={styles.IconButton}>
-                <ArrowForwardIos className={styles.Icon} />
-              </IconButton>
-            </Link>
-          ) : (
-            <div className={styles.IconButton}></div>
-          )}
-        </div>
+        </button>
+        {nextPhoto ? (
+          <Link
+            to={`/profile/${userId}/photo/${nextPhoto?.id}`}
+            state={{
+              backgroundLocation: {
+                pathname: `/profile/${userId}`,
+              },
+              filterBy: state.filterBy,
+            }}
+          >
+            <ArrowForwardIos className={styles.Icon} />
+          </Link>
+        ) : (
+          <div className={styles.IconButton}></div>
+        )}
       </div>
     </Dialog>
   );

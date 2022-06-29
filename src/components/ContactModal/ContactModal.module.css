@@ -35,9 +35,14 @@
   border-radius: 5px;
   border: unset;
   height: 45px;
+  font-size: 16px;
 }
-.Input[type="textarea"] {
-  height: 120px;
+.TextAreaInput {
+  height: 100px;
+  padding: 10px 0 0 2px;
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 16px;
 }
 .Error {
   color: var(--red-text);

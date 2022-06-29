@@ -77,7 +77,7 @@ export default function Profile({ photographers, media }) {
           backgroundLocation: location,
         }}
       >
-        <Button alt="Contact Me">Contactez-moi</Button>
+        <Button label="Contact Me">Contactez-moi</Button>
       </Link>
       <figure>
         <IdPhoto user={matchedUser} />

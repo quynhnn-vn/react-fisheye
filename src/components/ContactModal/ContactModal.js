@@ -77,15 +77,29 @@ export default function ContactModal({ photographers }) {
         {error[type] && error[type]?.length > 0 && (
           <span className={styles.Error}>{error[type]}</span>
         )}
-        <input
-          id={type}
-          type={type !== "message" ? "text" : "textarea"}
-          name={type}
-          value={form[type]}
-          onChange={onChangeForm}
-          onBlur={onBlurForm}
-          className={styles.Input}
-        />
+        {type !== "message" ? (
+          <input
+            id={type}
+            type={"text"}
+            name={type}
+            arial-label={title}
+            value={form[type]}
+            onChange={onChangeForm}
+            onBlur={onBlurForm}
+            className={styles.Input}
+          />
+        ) : (
+          <textarea
+            id={type}
+            name={type}
+            arial-label={title}
+            onChange={onChangeForm}
+            onBlur={onBlurForm}
+            className={[styles.Input, styles.TextAreaInput].join(" ")}
+          >
+            {form[type]}
+          </textarea>
+        )}
       </>
     );
   };
@@ -99,7 +113,7 @@ export default function ContactModal({ photographers }) {
       className={styles.ModalContainer}
       maxWidth="md"
     >
-      <div className={styles.ModalContent}>
+      <section className={styles.ModalContent}>
         <h1 className={styles.Title}>
           Contactez-moi
           <br />
@@ -114,10 +128,10 @@ export default function ContactModal({ photographers }) {
           {renderInput("email", "Email")}
           {renderInput("message", "Votre message")}
         </form>
-        <Button onClick={onSendForm} alt="Send">
+        <Button label="Send" onClick={onSendForm}>
           Envoyer
         </Button>
-      </div>
+      </section>
     </Dialog>
   );
 }

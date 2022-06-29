@@ -44,7 +44,15 @@ export default function Photo({
             loading="lazy"
           />
         ) : (
-          <video src={getPhotoOrVideoSource(item?.video)} alt={item.title} />
+          <video src={getPhotoOrVideoSource(item?.video)} alt={item.title}>
+            <track
+              default
+              kind="captions"
+              srcLang="fr"
+              src={getPhotoOrVideoSource(item?.video)}
+            />
+            Votre navigateur n'accepte pas le tag vidéo.
+          </video>
         )}
       </Link>
       <figcaption>

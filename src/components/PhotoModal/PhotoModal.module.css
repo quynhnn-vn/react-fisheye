@@ -9,25 +9,31 @@
   justify-content: space-evenly;
   background: var(--white);
   position: relative;
-  /* width: 80%;
-  height: 80%; */
-}
-.NarrowButton {
-  position: relative;
-  width: 51px;
+  height: 90vh;
 }
 .IconButton {
-  width: 51px;
+  width: 45px;
 }
 .Icon {
   color: var(--primary);
   width: 35px !important;
   height: 35px !important;
+  margin: 5px;
+}
+.Icon:hover {
+  color: var(--secondary);
 }
 .CloseButton {
   position: absolute !important;
   top: 0;
   right: 0;
+  background-color: white;
+  border: unset;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .PhotoContainer {

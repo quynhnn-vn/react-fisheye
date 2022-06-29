@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Button.module.css";
 
-export default function Button({ children, onClick, alt }) {
+export default function Button({ children, onClick, label }) {
   return (
-    <button className={styles.Button} onClick={onClick} alt={alt}>
+    <button aria-label={label} className={styles.Button} onClick={onClick}>
       {children}
     </button>
   );
