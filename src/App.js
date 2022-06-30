@@ -18,6 +18,7 @@ function App() {
     fetchPhotographers();
   }, []);
 
+  //
   const fetchPhotographers = async () => {
     try {
       let response = await fetch("/data/photographers.json");

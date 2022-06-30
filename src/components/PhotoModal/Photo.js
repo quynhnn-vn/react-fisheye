@@ -36,6 +36,7 @@ export default function Photo({
           backgroundLocation: location,
           filterBy,
         }}
+        arial-label={item.title}
       >
         {item?.image ? (
           <img

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header className={styles.Header}>
-      <Link to="/">
+      <Link to="/" aria-label="Fisheye Home page">
         <img src={logo} alt="Fisheye Home page" className={styles.Logo} />
       </Link>
       <h1>Nos photographes</h1>

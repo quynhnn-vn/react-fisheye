@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import IdPhoto from "UI/IdPhoto";
 
@@ -7,7 +7,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 import styles from "./Profile.module.css";
 import Loader from "UI/Loader";
-import Photo from "UI/Photo";
+import Photo from "components/PhotoModal/Photo";
 import Button from "UI/Button";
 import Select from "UI/Select";
 import { sortMedia } from "utils/utils";
@@ -30,7 +30,7 @@ const filterOptions = [
 
 export default function Profile({ photographers, media }) {
   const { userId } = useParams();
-  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -62,23 +62,28 @@ export default function Profile({ photographers, media }) {
     setOptions(cloneOptions);
   };
 
+  const onClickContactMe = () => {
+    navigate(`/profile/${userId}/contact`, {
+      state: {
+        backgroundLocation: {
+          pathname: `/profile/${userId}`,
+        },
+      },
+    });
+  };
+
   const header = (
     <section className={styles.Header}>
-      <div>
+      <article>
         <h1 className={styles.Name}>{matchedUser?.name}</h1>
         <p
           className={styles.City}
         >{`${matchedUser?.city}, ${matchedUser?.country}`}</p>
         <p className={styles.Tagline}>{matchedUser?.tagline}</p>
-      </div>
-      <Link
-        to={`/profile/${userId}/contact`}
-        state={{
-          backgroundLocation: location,
-        }}
-      >
-        <Button label="Contact Me">Contactez-moi</Button>
-      </Link>
+      </article>
+      <Button label="Contact Me" onClick={onClickContactMe}>
+        Contactez-moi
+      </Button>
       <figure>
         <IdPhoto user={matchedUser} />
       </figure>
@@ -91,7 +96,7 @@ export default function Profile({ photographers, media }) {
       <Select
         labelId="order-by"
         id="order-by"
-        alt="Order by"
+        label="Order by"
         value={filterBy}
         onChange={onChangeFilter}
         options={options}
@@ -114,22 +119,22 @@ export default function Profile({ photographers, media }) {
   );
 
   const footer = matchedMedia.length && (
-    <section className={styles.FooterContainer}>
-      <div className={styles.TotalLike}>
+    <footer className={styles.FooterContainer}>
+      <p className={styles.TotalLike}>
         {matchedMedia.map((item) => item.likes).reduce((a, b) => a + b, 0)}
         <AiFillHeart className={styles.HeartBtn} />
-      </div>
-      <div className={styles.Price}>{`${matchedUser?.price}Є/jour`}</div>
-    </section>
+      </p>
+      <p className={styles.Price}>{`${matchedUser?.price}Є/jour`}</p>
+    </footer>
   );
 
   return matchedUser ? (
-    <div className={styles.ProfileContainer}>
+    <main className={styles.ProfileContainer}>
       {header}
       {filter}
       {collection}
       {footer}
-    </div>
+    </main>
   ) : (
     <Loader />
   );

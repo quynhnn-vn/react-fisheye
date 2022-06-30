@@ -4,7 +4,7 @@ import IdPhoto from "UI/IdPhoto";
 
 import styles from "./Homepage.module.css";
 
-export default function Main({ photographers }) {
+export default function Homepage({ photographers }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -19,16 +19,21 @@ export default function Main({ photographers }) {
                 <IdPhoto user={photographer} />
                 <figcaption>
                   <h2 className={styles.Name}>{photographer?.name}</h2>
+                  <article
+                    className={styles.Description}
+                    aria-label="city tagline price"
+                  >
+                    <p
+                      className={styles.City}
+                    >{`${photographer?.city}, ${photographer?.country}`}</p>
+                    <p className={styles.Tagline}>{photographer?.tagline}</p>
+                    <p
+                      className={styles.Price}
+                    >{`${photographer?.price}Є/jour`}</p>
+                  </article>
                 </figcaption>
               </figure>
             </Link>
-            <div className={styles.Description} aria-label="city tagline price">
-              <p
-                className={styles.City}
-              >{`${photographer?.city}, ${photographer?.country}`}</p>
-              <p className={styles.Tagline}>{photographer?.tagline}</p>
-              <p className={styles.Price}>{`${photographer?.price}Є/jour`}</p>
-            </div>
           </section>
         ))}
     </main>

@@ -3,12 +3,13 @@ import { Select, MenuItem } from "@mui/material";
 import React from "react";
 import styles from "./Select.module.css";
 
-export default function CustomSelect({ id, alt, value, onChange, options }) {
+export default function CustomSelect({ id, label, value, onChange, options }) {
   return (
     <Select
       labelId={id}
       id={id}
-      alt={alt}
+      aria-label={label}
+      aria-labelledby={label}
       value={value}
       onChange={onChange}
       className={styles.DropDown}

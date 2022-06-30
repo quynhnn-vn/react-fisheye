@@ -6,7 +6,7 @@ import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 
 import styles from "./PhotoModal.module.css";
 
-export default function Modal({ media }) {
+export default function PhotoModal({ media }) {
   const navigate = useNavigate();
   const { userId, photoId } = useParams();
   const { state } = useLocation();
@@ -62,13 +62,12 @@ export default function Modal({ media }) {
     <Dialog
       open={true}
       onClose={() => navigate(`/profile/${userId}`)}
-      aria-labelledby={currentPhoto.title}
-      aria-describedby={currentPhoto.title}
+      aria-label="image closeup view"
       className={styles.ModalContainer}
       fullWidth
       maxWidth="md"
     >
-      <div className={styles.ModalContent} aria-label="image closeup view">
+      <div className={styles.ModalContent}>
         {previousPhoto ? (
           <Link
             to={`/profile/${userId}/photo/${previousPhoto?.id}`}
@@ -78,6 +77,7 @@ export default function Modal({ media }) {
               },
               filterBy: state.filterBy,
             }}
+            aria-label="Previous image"
           >
             <ArrowBackIosNew className={styles.Icon} />
           </Link>
@@ -114,12 +114,6 @@ export default function Modal({ media }) {
             <span className={styles.Title}>{currentPhoto.title}</span>
           </figcaption>
         </figure>
-        <button
-          className={styles.CloseButton}
-          onClick={() => navigate(`/profile/${userId}`)}
-        >
-          <Close className={styles.Icon} />
-        </button>
         {nextPhoto ? (
           <Link
             to={`/profile/${userId}/photo/${nextPhoto?.id}`}
@@ -129,12 +123,20 @@ export default function Modal({ media }) {
               },
               filterBy: state.filterBy,
             }}
+            aria-label="Next image"
           >
             <ArrowForwardIos className={styles.Icon} />
           </Link>
         ) : (
           <div className={styles.IconButton}></div>
         )}
+        <button
+          className={styles.CloseButton}
+          onClick={() => navigate(`/profile/${userId}`)}
+          aria-label="Close dialog"
+        >
+          <Close className={styles.Icon} />
+        </button>
       </div>
     </Dialog>
   );

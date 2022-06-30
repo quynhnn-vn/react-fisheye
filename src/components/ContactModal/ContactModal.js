@@ -68,21 +68,25 @@ export default function ContactModal({ photographers }) {
     }
   };
 
-  const renderInput = (type, title) => {
+  const renderInput = (type, title, label) => {
     return (
       <>
-        <label htmlFor={type} className={styles.Label}>
+        <label id={label} htmlFor={type} className={styles.Label}>
           {title}
         </label>
         {error[type] && error[type]?.length > 0 && (
-          <span className={styles.Error}>{error[type]}</span>
+          <span className={styles.Error} role="alert" aria-label={error[type]}>
+            {error[type]}
+          </span>
         )}
         {type !== "message" ? (
           <input
             id={type}
             type={"text"}
             name={type}
-            arial-label={title}
+            arial-label={label}
+            aria-required="true"
+            aria-invalid={Boolean(error[type])}
             value={form[type]}
             onChange={onChangeForm}
             onBlur={onBlurForm}
@@ -92,7 +96,9 @@ export default function ContactModal({ photographers }) {
           <textarea
             id={type}
             name={type}
-            arial-label={title}
+            arial-label={label}
+            aria-required="true"
+            aria-invalid={Boolean(error[type])}
             onChange={onChangeForm}
             onBlur={onBlurForm}
             className={[styles.Input, styles.TextAreaInput].join(" ")}
@@ -109,24 +115,27 @@ export default function ContactModal({ photographers }) {
       open={true}
       onClose={onCloseModal}
       aria-labelledby={`Contact me ${matchedUser?.name}`}
-      aria-describedby={`Contact me ${matchedUser?.name}`}
       className={styles.ModalContainer}
       maxWidth="md"
     >
       <section className={styles.ModalContent}>
-        <h1 className={styles.Title}>
+        <h1 id={`Contact me ${matchedUser?.name}`} className={styles.Title}>
           Contactez-moi
           <br />
           {matchedUser?.name}
         </h1>
-        <IconButton className={styles.CloseButton} onClick={onCloseModal}>
+        <IconButton
+          aria-label="Close Contact form"
+          className={styles.CloseButton}
+          onClick={onCloseModal}
+        >
           <Close className={styles.CloseIcon} />
         </IconButton>
         <form className={styles.FormContent}>
-          {renderInput("firstName", "Prénom")}
-          {renderInput("lastName", "Nom")}
-          {renderInput("email", "Email")}
-          {renderInput("message", "Votre message")}
+          {renderInput("firstName", "Prénom", "First name")}
+          {renderInput("lastName", "Nom", "Last name")}
+          {renderInput("email", "Email", "Email")}
+          {renderInput("message", "Votre message", "Your message")}
         </form>
         <Button label="Send" onClick={onSendForm}>
           Envoyer
