@@ -8,6 +8,11 @@ import Button from "../../UI/Button";
 
 import styles from "./ContactModal.module.css";
 
+/**
+ * Component of the contact dialog, including:
+ * - A contact form with inputs: first name, last name, email and message
+ * - Handler for events: close modal, change input content, validation on blur and send form
+ */
 export default function ContactModal({ photographers }) {
   const navigate = useNavigate();
   const { userId } = useParams();

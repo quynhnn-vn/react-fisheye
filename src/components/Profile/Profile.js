@@ -7,7 +7,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 import styles from "./Profile.module.css";
 import Loader from "UI/Loader";
-import Photo from "components/PhotoModal/Photo";
+import Photo from "components/Profile/Photo";
 import Button from "UI/Button";
 import Select from "UI/Select";
 import { sortMedia } from "utils/utils";

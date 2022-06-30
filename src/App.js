@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Homepage from "components/Homepage/Homepage";
 import Profile from "components/Profile/Profile";
-import Header from "components/Header/Header";
+import Header from "UI/Header/Header";
 import Loader from "UI/Loader";
 import Modal from "components/PhotoModal/PhotoModal";
 

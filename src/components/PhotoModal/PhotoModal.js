@@ -6,6 +6,11 @@ import { getPhotoOrVideoSource, sortMedia } from "utils/utils";
 
 import styles from "./PhotoModal.module.css";
 
+/**
+ * Component of the photo lightbox, including:
+ * - A dialog has an image, previous, next and close buttons
+ * - Handler for events: key press, navigate to previous or next image
+ */
 export default function PhotoModal({ media }) {
   const navigate = useNavigate();
   const { userId, photoId } = useParams();

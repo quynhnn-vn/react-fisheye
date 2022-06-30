@@ -4,6 +4,11 @@ import IdPhoto from "UI/IdPhoto";
 
 import styles from "./Homepage.module.css";
 
+/**
+ * Component of the homepage, including a list of photographers, each photographer has:
+ * - A profile photo
+ * - Some details such as description, city of price
+ */
 export default function Homepage({ photographers }) {
   useEffect(() => {
     window.scrollTo(0, 0);
