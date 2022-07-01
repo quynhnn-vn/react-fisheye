@@ -8,7 +8,7 @@ import styles from "./PhotoModal.module.css";
 
 /**
  * Component of the photo lightbox, including:
- * - A dialog has an image, previous, next and close buttons
+ * - Dialog has an image, previous, next and close buttons
  * - Handler for events: key press, navigate to previous or next image
  */
 export default function PhotoModal({ media }) {
@@ -20,16 +20,19 @@ export default function PhotoModal({ media }) {
     (item) => item.photographerId === Number(userId)
   );
 
-  const currentIndex = sortMedia(matchedMedia, state.filterBy).findIndex(
+  // Current index of media item in collection
+  const currentIndex = sortMedia(matchedMedia, state.sortBy).findIndex(
     (item) => item.id === Number(photoId)
   );
 
+  // Get the previous, current and next item
   const [previousPhoto, currentPhoto, nextPhoto] = [
     matchedMedia[currentIndex - 1],
     matchedMedia[currentIndex],
     matchedMedia[currentIndex + 1],
   ];
 
+  // Handle press on arrow left and arrow right keys
   const handleKeyPress = useCallback(
     (e) => {
       if (e.key === "ArrowRight" && nextPhoto) {
@@ -38,7 +41,7 @@ export default function PhotoModal({ media }) {
             backgroundLocation: {
               pathname: `/profile/${userId}`,
             },
-            filterBy: state.filterBy,
+            sortBy: state.sortBy,
           },
         });
       } else if (e.key === "ArrowLeft" && previousPhoto) {
@@ -47,12 +50,12 @@ export default function PhotoModal({ media }) {
             backgroundLocation: {
               pathname: `/profile/${userId}`,
             },
-            filterBy: state.filterBy,
+            sortBy: state.sortBy,
           },
         });
       }
     },
-    [navigate, nextPhoto, previousPhoto, state.filterBy, userId]
+    [navigate, nextPhoto, previousPhoto, state.sortBy, userId]
   );
 
   useEffect(() => {
@@ -80,7 +83,7 @@ export default function PhotoModal({ media }) {
               backgroundLocation: {
                 pathname: `/profile/${userId}`,
               },
-              filterBy: state.filterBy,
+              sortBy: state.sortBy,
             }}
             aria-label="Previous image"
           >
@@ -126,7 +129,7 @@ export default function PhotoModal({ media }) {
               backgroundLocation: {
                 pathname: `/profile/${userId}`,
               },
-              filterBy: state.filterBy,
+              sortBy: state.sortBy,
             }}
             aria-label="Next image"
           >

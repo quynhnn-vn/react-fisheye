@@ -4,13 +4,13 @@ import { cloneDeep } from "lodash";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { validateForm, validEmailRegex } from "utils/utils";
-import Button from "../../UI/Button";
+import Button from "../../UI/Button/Button";
 
 import styles from "./ContactModal.module.css";
 
 /**
  * Component of the contact dialog, including:
- * - A contact form with inputs: first name, last name, email and message
+ * - Contact form with inputs: first name, last name, email and message
  * - Handler for events: close modal, change input content, validation on blur and send form
  */
 export default function ContactModal({ photographers }) {
@@ -34,8 +34,10 @@ export default function ContactModal({ photographers }) {
     (photographer) => photographer.id === Number(userId)
   );
 
+  // Handle close contact modal
   const onCloseModal = () => navigate(`/profile/${userId}`);
 
+  // Handle changing content of inputs
   const onChangeForm = (e) => {
     e.preventDefault();
     const name = e.target.name;
@@ -47,6 +49,7 @@ export default function ContactModal({ photographers }) {
     });
   };
 
+  // Handle validation on blur
   const onBlurForm = (e) => {
     e.preventDefault();
     const name = e.target.name;
@@ -66,6 +69,7 @@ export default function ContactModal({ photographers }) {
     setError(cloneError);
   };
 
+  // Handle sending form
   const onSendForm = () => {
     if (validateForm(error)) {
       onCloseModal();
@@ -75,7 +79,7 @@ export default function ContactModal({ photographers }) {
 
   const renderInput = (type, title, label) => {
     return (
-      <>
+      <fieldset>
         <label id={label} htmlFor={type} className={styles.Label}>
           {title}
         </label>
@@ -111,7 +115,7 @@ export default function ContactModal({ photographers }) {
             {form[type]}
           </textarea>
         )}
-      </>
+      </fieldset>
     );
   };
 

@@ -6,15 +6,20 @@ import { getPhotoOrVideoSource } from "utils/utils";
 import { cloneDeep } from "lodash";
 import styles from "./Photo.module.css";
 
-export default function Photo({
-  item,
-  matchedMedia,
-  setMatchedMedia,
-  filterBy,
-}) {
+/**
+ * Component of photo/video item in media collection, including:
+ * - Link to the photo modal
+ * - Title and number of likes of the photo
+ * - Heart button to increase likes
+ */
+export default function Photo(props) {
+  const { item, matchedMedia, setMatchedMedia, sortBy } = props;
+
   const location = useLocation();
+
   const [currentLikes, setCurrentLikes] = useState(item.likes);
 
+  // Handle click on like button
   const onClickLikes = () => {
     let cloneMatchedMedia = cloneDeep(matchedMedia);
     const itemIndex = cloneMatchedMedia.findIndex(
@@ -34,7 +39,7 @@ export default function Photo({
         to={`photo/${item.id}`}
         state={{
           backgroundLocation: location,
-          filterBy,
+          sortBy,
         }}
         arial-label={item.title}
       >

@@ -16,9 +16,6 @@
   background-color: var(--secondary) !important;
   color: var(--black) !important;
 }
-.DropDown > fieldset {
-  border: none;
-}
 .DropDown > svg {
   color: var(--white);
 }
@@ -42,17 +39,14 @@
     3 !important;
 }
 .MenuItem:first-of-type {
-  margin-top: -74px;
+  margin-top: -76px;
 }
 .MenuItem:last-of-type {
   margin-bottom: -8px;
   border-bottom: none !important;
 }
-.MenuItem:hover {
+.MenuItem:hover,
+.MenuItem:focus {
   background-color: var(--secondary) !important;
   color: var(--black) !important;
 }
-/* .MenuItem:focus {
-  background-color: var(--secondary) !important;
-  color: var(--white) !important;
-} */

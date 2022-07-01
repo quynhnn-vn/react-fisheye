@@ -1,48 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import IdPhoto from "UI/IdPhoto";
+import Photo from "components/Profile/Photo";
+
+import IdPhoto from "UI/IdPhoto/IdPhoto";
+import Loader from "UI/Loader/Loader";
+import Button from "UI/Button/Button";
+import Select from "UI/Select/Select";
 
 import { AiFillHeart } from "react-icons/ai";
-
-import styles from "./Profile.module.css";
-import Loader from "UI/Loader";
-import Photo from "components/Profile/Photo";
-import Button from "UI/Button";
-import Select from "UI/Select";
-import { sortMedia } from "utils/utils";
+import { sortMedia, sortOptions } from "utils/utils";
 import { cloneDeep } from "lodash";
 
-const filterOptions = [
-  {
-    value: "likes",
-    title: "Popularité",
-  },
-  {
-    value: "date",
-    title: "Date",
-  },
-  {
-    value: "title",
-    title: "Titre",
-  },
-];
+import styles from "./Profile.module.css";
 
+/**
+ * Component for Profile page, including:
+ * - A header containing name, city, slogan, profile photo of the current user and a contact button
+ * - A filter containing title and a select input
+ * - A media collection of the current user
+ * - A footer for number of likes and price
+ */
 export default function Profile({ photographers, media }) {
   const { userId } = useParams();
   const navigate = useNavigate();
 
+  // User information of current userId
+  const matchedUser = photographers.find(
+    (user) => Number(user.id) === Number(userId)
+  );
+  // Media list of current userId
+  const [matchedMedia, setMatchedMedia] = useState([]);
+
+  // Can be likes, date or title
+  const [sortBy, setSortBy] = useState("likes");
+  const [options, setOptions] = useState(sortOptions);
+
+  // Scroll to the top when mounting
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [matchedMedia, setMatchedMedia] = useState([]);
-  // Can be likes, date or title
-  const [filterBy, setFilterBy] = useState("likes");
-  const [options, setOptions] = useState(filterOptions);
-
-  const matchedUser = photographers.find((user) => user.id === Number(userId));
-
+  // Find all media of current userId
   useEffect(() => {
     setMatchedMedia(
       media.filter((item) => Number(item.photographerId) === Number(userId))
@@ -50,8 +49,9 @@ export default function Profile({ photographers, media }) {
   }, [media, userId]);
 
   const onChangeFilter = (e) => {
-    setFilterBy(e.target.value);
+    setSortBy(e.target.value);
 
+    // Change the position of sorting options:  the selected one to the top, others to the bottom
     let cloneOptions = cloneDeep(options);
     const currentIndex = cloneOptions.findIndex(
       (option) => option.value === e.target.value
@@ -62,6 +62,7 @@ export default function Profile({ photographers, media }) {
     setOptions(cloneOptions);
   };
 
+  // Handle click on contact button
   const onClickContactMe = () => {
     navigate(`/profile/${userId}/contact`, {
       state: {
@@ -72,7 +73,7 @@ export default function Profile({ photographers, media }) {
     });
   };
 
-  const header = (
+  const header = matchedUser && (
     <section className={styles.Header}>
       <article>
         <h1 className={styles.Name}>{matchedUser?.name}</h1>
@@ -90,14 +91,15 @@ export default function Profile({ photographers, media }) {
     </section>
   );
 
-  const filter = (
+  const filter = matchedUser && (
     <section className={styles.Filter}>
-      <span className={styles.FilterText}>Trier par</span>
+      <span id="Order by" className={styles.FilterText}>
+        Trier par
+      </span>
       <Select
-        labelId="order-by"
-        id="order-by"
         label="Order by"
-        value={filterBy}
+        labelBy="Order by"
+        value={sortBy}
         onChange={onChangeFilter}
         options={options}
       />
@@ -106,13 +108,13 @@ export default function Profile({ photographers, media }) {
 
   const collection = matchedMedia.length && (
     <section className={styles.Collection}>
-      {sortMedia(matchedMedia, filterBy).map((item) => (
+      {sortMedia(matchedMedia, sortBy).map((item) => (
         <Photo
           key={item.id}
           item={item}
           matchedMedia={matchedMedia}
           setMatchedMedia={setMatchedMedia}
-          filterBy={filterBy}
+          sortBy={sortBy}
         />
       ))}
     </section>

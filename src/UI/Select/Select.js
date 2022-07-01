@@ -1,15 +1,19 @@
+import React from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { Select, MenuItem } from "@mui/material";
-import React from "react";
 import styles from "./Select.module.css";
 
-export default function CustomSelect({ id, label, value, onChange, options }) {
+/**
+ * UI component for select
+ */
+export default function CustomSelect(props) {
+  const { id, label, labelBy, value, onChange, options } = props;
   return (
     <Select
-      labelId={id}
       id={id}
+      labelId={id}
       aria-label={label}
-      aria-labelledby={label}
+      aria-labelledby={labelBy}
       value={value}
       onChange={onChange}
       className={styles.DropDown}

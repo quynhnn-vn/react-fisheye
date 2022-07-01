@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import IdPhoto from "UI/IdPhoto";
+import IdPhoto from "UI/IdPhoto/IdPhoto";
 
 import styles from "./Homepage.module.css";
 
 /**
  * Component of the homepage, including a list of photographers, each photographer has:
- * - A profile photo
+ * - Profile photo
  * - Some details such as description, city of price
  */
 export default function Homepage({ photographers }) {
+  // Scroll to top on mounting
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

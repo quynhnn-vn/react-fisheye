@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+
 import Homepage from "components/Homepage/Homepage";
 import Profile from "components/Profile/Profile";
 import Header from "UI/Header/Header";
-import Loader from "UI/Loader";
-import Modal from "components/PhotoModal/PhotoModal";
-
-import "./App.css";
+import Loader from "UI/Loader/Loader";
+import PhotoModal from "components/PhotoModal/PhotoModal";
 import ContactModal from "components/ContactModal/ContactModal";
 
+import "./App.css";
+
+/**
+ * Main component of the app, including:
+ * - Header for all pages
+ * - Routes to different pages
+ * - Fetch logic to get the data from json file
+ */
 function App() {
   const location = useLocation();
   const [photographers, setPhotographers] = useState([]);
@@ -18,7 +25,7 @@ function App() {
     fetchPhotographers();
   }, []);
 
-  //
+  // Fetch the data from json file, extract it and assign to photographers and media state
   const fetchPhotographers = async () => {
     try {
       let response = await fetch("/data/photographers.json");
@@ -55,7 +62,7 @@ function App() {
             <Routes>
               <Route
                 path="/profile/:userId/photo/:photoId"
-                element={<Modal media={media} />}
+                element={<PhotoModal media={media} />}
               />
               <Route
                 path="/profile/:userId/contact"
